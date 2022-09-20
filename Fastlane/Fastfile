@@ -1,0 +1,88 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.200.0"
+
+default_platform :ios
+
+platform :ios do
+
+    desc "Execute XCUITests on Simulator"
+    lane :xcuitests_simulator do
+        sim_callback = lambda do |simulator_device_udid|
+          puts "Start simulator with UDID: #{simulator_device_udid}"
+        end
+
+        begin
+            result = multi_scan(
+                workspace: "SampleApp.xcworkspace",
+                scheme: ENV['XCUITESTS_INSTANCE_SCHEME'],
+                testplan: ENV['XCUITESTS_TESTPLAN'],
+                device: ENV['XCUITESTS_DEVICE'],
+                derived_data_path: ENV['XCUITESTS_INSTANCE_DIR'],
+                buildlog_path: "#{ENV['XCUITESTS_INSTANCE_DIR']}/scan",
+                output_types: 'junit',
+                result_bundle: true,
+                try_count: ENV['XCUITESTS_TRY_COUNT'].to_i,
+                parallel_testrun_count: ENV['XCUITESTS_PARALLEL_TESTRUN_COUNT'].to_i,
+                retry_test_runner_failures: true,
+                clean: true,
+                reinstall_app: true,
+                app_identifier: "SampleApp",
+                simulator_started_callback: sim_callback,
+                skip_slack: true,
+                )
+        # If ANY exception happens, let me handle it
+        rescue => ex
+          # re-raise the exception unless it's something we're OK with ignoring
+          if ex.message.include?('Tests have failed')
+            puts "Error: #{ex.message}"
+            exit(3) # Marks Unstable on Jenkins
+          else 
+            puts "Error: #{ex.message}"
+            exit(1) # Marks Build Failed on Jenkins
+          end
+        end
+    end
+
+    desc "Execute unit tests"
+    lane :unit_test do
+        begin
+        run_tests(
+            workspace: "Grindr.xcworkspace",
+            scheme: "GrindrTests",
+            testplan: "UnitTest",
+            device: ENV['XCUITESTS_DEVICE'],
+            derived_data_path: ENV['XCUITESTS_INSTANCE_DIR'],
+            buildlog_path: "#{ENV['XCUITESTS_INSTANCE_DIR']}/scan",
+            output_types: 'junit', # Don't generate reports, they be generated from the result_bundle
+            skip_build: true, # Skip debug build and run test build directly
+            skip_detect_devices: true, # Skip real device detection to decrease build time
+            reset_simulator: true,
+            reinstall_app: true,
+            app_identifier: "com.grindrguy.grindrx.test",
+            skip_slack: true
+        )
+        # If ANY exception happens, let me handle it
+        rescue => ex
+          # re-raise the exception unless it's something we're OK with ignoring
+          if ex.message.include?('Tests have failed')
+            puts "Error: #{ex.message}"
+            exit(3) # Marks Unstable on Jenkins
+          else 
+            puts "Error: #{ex.message}"
+            exit(1) # Marks Build Failed on Jenkins
+          end
+        end
+    end
+end

@@ -1,0 +1,41 @@
+{
+  "configurations" : [
+    {
+      "id" : "C506AC84-CF8E-4E9A-BD78-4F2DFFE0CD0F",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SampleApp.xcodeproj",
+      "identifier" : "C2CAB47528D870B9007D0134",
+      "name" : "SampleApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:SampleApp.xcodeproj",
+        "identifier" : "C2CAB48628D870BB007D0134",
+        "name" : "SampleAppTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "SampleAppUITests\/testLaunchPerformance()"
+      ],
+      "target" : {
+        "containerPath" : "container:SampleApp.xcodeproj",
+        "identifier" : "C2CAB49028D870BB007D0134",
+        "name" : "SampleAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -45,6 +45,7 @@
 		C2CAB49128D870BB007D0134 /* SampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CAB49528D870BB007D0134 /* SampleAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppUITests.swift; sourceTree = "<group>"; };
 		C2CAB49728D870BB007D0134 /* SampleAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C2CAB4A428D87579007D0134 /* SampleApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SampleApp.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				C2CAB49528D870BB007D0134 /* SampleAppUITests.swift */,
+				C2CAB4A428D87579007D0134 /* SampleApp.xctestplan */,
 				C2CAB49728D870BB007D0134 /* SampleAppUITestsLaunchTests.swift */,
 			);
 			path = SampleAppUITests;
