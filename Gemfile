@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'fastlane', '~> 2.200.0' # https://github.com/fastlane/fastlane/releases
+gem 'fastlane', '~> 2.210.0' # https://github.com/fastlane/fastlane/releases
 gem 'cocoapods', '~> 1.11.3' # https://github.com/CocoaPods/CocoaPods/releases
 gem 'xcodeproj'
 
